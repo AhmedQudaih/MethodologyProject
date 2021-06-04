@@ -1,0 +1,87 @@
+﻿@model MethodologyProject.ViewModel.ExperimentVolunteer
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Volunteers List</h2>
+@if (Model.Volunteers.Count() != 0)
+{
+    <table class="table">
+        <tr>
+            <th>
+                <h7>Name</h7>
+            </th>
+            <th>
+                <h7>User Role</h7>
+            </th>
+            <th>
+                <h7>Phone Number</h7>
+            </th>
+            <th>
+                <h7>Status</h7>
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model.Volunteers)
+        {
+            <tr>
+                <td>
+                    <h7>@item.name</h7>
+
+                </td>
+                <td>
+
+                    @foreach (var role in Model.UserRole)
+                    {
+
+                        if (item.UserRole_id == role.id)
+                        {
+                            <h7>@role.Name</h7>
+                        }
+
+                    }
+                </td>
+                <td>
+                    <h7>@item.phone_number</h7>
+                </td>
+                <td>
+                    @if (item.Status == false)
+                    {
+                        <h7>Available</h7>
+                    }
+                    else
+                    {
+                        <h7> Blocked </h7>
+                    }
+
+                </td>
+                <td>
+                    @if (Session["UserRole"] != null && Session["UserRole"].ToString() == "1")
+                    {
+                        @Html.ActionLink("Block User", "BlockVolunteer", new { id = item.national_id })
+                        @:|
+                        @Html.ActionLink("Delete", "Delete", new { id = item.national_id })
+                        @:|
+                    }
+
+                    @if (Session["UserRole"] != null && Session["UserRole"].ToString() == "2")
+                    {
+                        @Html.ActionLink("Edit", "Edit", new { id = item.national_id }) @:|
+                        <a href="/Experiment/AssignToExperiment/@item.national_id">Assign or Edit Experiment</a> @:|
+                    }
+
+                    @Html.ActionLink("Details", "Details", new { id = item.national_id })
+
+                </td>
+            </tr>
+        }
+
+    </table>
+}
+else
+{
+    <h1>No Volunteers Yet</h1>
+} 

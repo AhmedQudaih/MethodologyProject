@@ -1,0 +1,51 @@
+﻿@model MethodologyProject.ViewModel.ExperimentVolunteer
+
+@{
+    ViewBag.Title = "AssignToExperiment";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>AssignToExperiment</h2>
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+<div class="form-horizontal">
+    <hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+ 
+    <input type="hidden" id="national_id" name="national_id" value=" @Model.MyVolunteer.national_id">
+    <div class="col-md-10">
+        <div class="form-group">
+            <label for="MyVolunteerName" class="form-label mt-4">Volunteer Name: </label>
+            @Html.TextBoxFor(model => model.MyVolunteer.name, new { disabled = "disabled" })
+        </div>
+    </div>
+
+
+    <div class="col-md-10">
+        <div class="form-group">
+            <label for="exampleSelect1" class="form-label mt-4">Example select</label>
+            <select class="form-select" id="exampleSelect1" name="experiment_id">
+                @foreach (var x in Model.Experiments)
+                {
+                    <option value="@x.id">@x.name</option>
+                }
+            </select>
+
+            @Html.ValidationMessageFor(model => model.MyVolunteer.experiment_id, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Save" class="btn btn-default" />
+        </div>
+    </div>
+</div>
+        }
+
+        @section Scripts {
+            @Scripts.Render("~/bundles/jqueryval")
+        }

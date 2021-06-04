@@ -1,0 +1,77 @@
+﻿@model MethodologyProject.ViewModel.ExperimentVolunteer
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Volunteer Details</h2>
+
+<div>
+    <hr />
+    <table class="dl-horizontal">
+        <tr>
+            <td>
+                <b>National ID: </b>@Model.MyVolunteer.national_id
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <b>Name: </b>@Model.MyVolunteer.name
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <b>User Type: </b>@Model.MyUserRole.Name
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <b>Address: </b>@Model.MyVolunteer.address
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <b>Phone Number: </b>@Model.MyVolunteer.phone_number
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <b>Age: </b>@Model.MyVolunteer.age
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <b>Status: </b>@if (Model.MyVolunteer.Status == false)
+                {
+                    @: <h7>Active</h7>
+                }
+                else
+                {
+                    @: <h4>Blocked</h4>
+                }
+                </td>
+        </tr>
+        @if(@Model.MyExperiment != null) { 
+            <tr>
+                <td>
+                    <b>Experiment Name </b>@Model.MyExperiment.name
+                </td>
+            </tr>
+        }
+        <tr>
+            <td>
+                <b>Note: </b>@Model.MyVolunteer.note
+            </td>
+        </tr>
+    </table>
+</div>
+<p>
+    @if (Session["UserRole"] != null && Session["UserRole"].ToString() == "2")
+    {
+    @Html.ActionLink("Edit", "Edit", new { id = Model.MyVolunteer.national_id })
+
+    }
+
+
+</p>

@@ -1,0 +1,62 @@
+﻿@model MethodologyProject.ViewModel.ExperimentVolunteer
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Experiment List</h2>
+
+
+<table class="table">
+    @if (Model.Experiments.Count() != 0)
+    {
+        <tr>
+            <th>
+                <h7>Name</h7>
+            </th>
+            <th>
+                <h7>Start Date</h7>
+            </th>
+           
+            <th>
+                <h7>Number Of Volunteers</h7>
+            </th>
+          
+            <th></th>
+        </tr>
+
+        foreach (var item in Model.Experiments)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.start_date)
+                </td>
+                
+                <td>
+                    @Model.Volunteers.Where(ss => ss.experiment_id == item.id).Count()
+
+                </td>
+                
+                <td>
+                    @if (Session["UserRole"] != null && Session["UserRole"].ToString() == "2")
+                    {
+
+                        @Html.ActionLink("Edit", "Edit", new { id = item.id }) @:|
+                        @Html.ActionLink("Delete", "Delete", new { id = item.id }) @:|
+                    }
+
+                    @Html.ActionLink("Details", "Details", new { id = item.id })
+                </td>
+            </tr>
+        }
+    }
+    else
+    {
+        <h1>No Experiments Yet</h1>
+    }
+
+</table>

@@ -1,0 +1,32 @@
+﻿@model MethodologyProject.ViewModel.ExperimentVolunteer
+
+@{
+    ViewBag.Title = "GeneralReport";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div>
+    <h2>GeneralReport</h2>
+</div>
+<div class="list-group">
+    <a href="#" class="list-group-item list-group-item-action flex-column align-items-start active ">
+        <div class="d-flex w-100 justify-content-between">
+            <h5 class="mb-1">Number Of Volunteers</h5>
+        </div>
+        <p class="mb-1">@Model.Volunteers.Where(vol=>vol.UserRole_id == 3).Count()</p>
+        <small>Donec id elit non mi porta.</small>
+    </a>
+    <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
+        <div class="d-flex w-100 justify-content-between">
+            <h5 class="mb-1">Number Of Technicals</h5>
+        </div>
+        <p class="mb-1">@Model.Volunteers.Where(vol => vol.UserRole_id == 2).Count()</p>
+        <small class="text-muted">Donec id elit non mi porta.</small>
+    </a>
+    <a href="#" class="list-group-item list-group-item-action flex-column align-items-start active ">
+    <div class="d-flex w-100 justify-content-between">
+        <h5 class="mb-1">Number Of Experiments</h5>
+    </div>
+    <p class="mb-1">@Model.Experiments.Count()</p>
+    <small>Donec id elit non mi porta.</small>
+</a>
+</div>

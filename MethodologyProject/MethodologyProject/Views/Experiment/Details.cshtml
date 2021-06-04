@@ -1,0 +1,70 @@
+﻿@model MethodologyProject.ViewModel.ExperimentVolunteer
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Experiment Details</h2>
+
+<div>
+    <table>
+        <tr>
+            <td><b>Name: </b>@Model.MyExperiment.name</td>
+        </tr>
+
+        <tr>
+            <td> <b>Start Date: </b>@Model.MyExperiment.start_date</td>
+        </tr>
+        <tr>
+            <td><b>End Date: </b> @Model.MyExperiment.end_date</td>
+        </tr>
+        <tr>
+            <td><b>Description</b> @Model.MyExperiment.description</td>
+        </tr>
+        <tr>
+            <td><b>Number Of Volunteers: </b>  @Model.Volunteers.Count</td>
+        </tr>
+        @if (Session["UserRole"] != null && Session["UserRole"].ToString() == "2")
+        {
+            <tr>
+                <td>
+
+
+                    @Html.ActionLink("Edit Experiment", "Edit", new { id = Model.MyExperiment.id })
+
+                </td>
+            </tr>
+        }
+    </table>
+
+    @if (Model.Volunteers.Count() != 0)
+    {
+        <table class="table">
+
+            <tr>
+                <th>
+                    <h7>National ID </h7>
+                </th>
+                <th><h7>Name</h7></th>
+                <th><h7>Phone Number</h7></th>
+            </tr>
+            @foreach (var x in Model.Volunteers)
+            {
+                <tr>
+                    <td><h7>@x.national_id</h7></td>
+                    <td><h7>@x.name</h7></td>
+                    <td><h7>@x.phone_number</h7></td>
+                    <td>
+                        <h7> <a href="/Volunteer/Details/@x.national_id">Details</a></h7>
+</td>
+                </tr>
+                <hr />
+            }
+
+        </table>
+
+    }
+
+</div>
+
